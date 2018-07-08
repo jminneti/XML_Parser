@@ -1,0 +1,13 @@
+{% extends 'Base/base.html' %}
+
+{% block content %}
+    <div class="container">
+    	<div class="row justify-content-md-center"> 
+	        <a href="{% url 'IRS_Parse_App_URL' %}">IRS Parse App</a>
+		</div>
+
+		<div class="row justify-content-md-center"> 
+	        <a href="{% url 'validation_URL' %}">Validation App</a>
+		</div>
+    </div>
+{% endblock %}

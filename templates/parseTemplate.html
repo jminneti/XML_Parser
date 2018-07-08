@@ -1,0 +1,40 @@
+
+{% extends 'Base/base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-md-center">
+      <h2>XML Validation Results</h2>
+      <p class="text-center">
+        These results show all unique DentalOnlyPlan and MetalLevel options present
+        in the XML files for the given counties.
+      </p>
+  </div>
+  <div class="row justify-content-lg-center">                            
+     <table class="table table-hover"
+      <thead>                      
+        <th scope="col">County Name</th>
+        <th scope="col">State</th>        
+        <th scope="col">Unique MetalLevel Entries</th>
+        <th scope="col">Unique DentalOnlyPlan Entries</th>
+        <th scope="col">'Bronze' AND 'No'?</th>
+      </thead>
+      <tbody>
+        {% for index, row in df.iterrows %}
+          <tr>
+            {% for col,val in row.iteritems %}
+              <td>{{val}}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>          
+  </div>
+  <div class="row justify-content-md-center">
+      <a class="btn btn-secondary" href="{% url 'IRS_Parse_App_URL' %}">Back to File Selection</a>
+  </div>
+
+</div>
+{% endblock %}

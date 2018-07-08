@@ -1,0 +1,61 @@
+
+{% extends 'Base/base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+<div class="row justify-content-md-center">  
+  <form method="POST" action="{%url 'IRS_Parse_App_URL'%}">
+    <div class="row" style="margin-bottom: 20px">
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" name="add_button">Upload File</button>
+      </div>
+    </div>
+
+    {% csrf_token %}
+    {% render_table uploadTable %}
+
+    <div class="row" style="margin-bottom: 20px">
+      <div class="col-auto">
+        <button class="btn btn-danger" type="submit" name="delete_button" >Delete Selected</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row justify-content-md-center">
+  <div class="row" style="margin-bottom: 20px">
+    <div class="col-auto">
+      <a class="btn btn-success" href="{% url 'parse_URL' %}">Parse</a>
+    </div>
+    <div class="col-auto">
+      <a class="btn btn-secondary" href="{% url 'homepage' %}">Home</a>
+    </div>
+  </div>
+</div>
+
+
+<!--Add Modal -->
+<div id="addModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add File</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data" action="{%url 'IRS_Parse_App_URL'%}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-outline-success" type="submit" name="upload_button">Upload</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
